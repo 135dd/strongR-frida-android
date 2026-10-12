@@ -45,14 +45,14 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         
-        # 修复了这里：用作者推荐的 Ylarod/Florida 作为补丁源
+        # 直接拉取 Ylarod 的补丁仓库，不需要任何密钥！
         git clone https://github.com/Ylarod/Florida Patchs
         
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
         
-        # 适配 Ylarod 仓库的补丁路径
+        # 自动循环打补丁
         for path in ../Patchs/Patchs/strongR-frida/*
         do
           name=$(basename $path)
