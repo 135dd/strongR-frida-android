@@ -45,13 +45,14 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         
-        # 使用你自己的仓库地址作为 Patch 来源 (根据你现在的用户名和仓库名，不需要额外配置 Secrets)
-        git clone https://github.com/135dd/strongR-frida-android Patchs
+        # 修复了这里：用作者推荐的 Ylarod/Florida 作为补丁源
+        git clone https://github.com/Ylarod/Florida Patchs
         
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
         
+        # 适配 Ylarod 仓库的补丁路径
         for path in ../Patchs/Patchs/strongR-frida/*
         do
           name=$(basename $path)
